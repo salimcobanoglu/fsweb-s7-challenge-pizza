@@ -1,11 +1,25 @@
 import React from "react";
+import { Route, Switch } from "react-router-dom";
+import Form from "./Components/Form";
+import Home from "./Components/Home";
+import Order from "./Components/Order";
 
 const App = () => {
   return (
-    <>
-      <h1>Teknolojik Yemekler</h1>
-      <p>Burdaki kodu silip kendi headerınızı ekleyebilirsiniz</p>
-    </>
+    <div className="container">
+      <Switch>
+        <Route path="/pizza">
+          <Form />
+        </Route>
+        <Route path="/order">
+          <Order />
+        </Route>
+        <Route path="/">
+          <Home />
+        </Route>
+      </Switch>
+    </div>
   );
 };
+
 export default App;

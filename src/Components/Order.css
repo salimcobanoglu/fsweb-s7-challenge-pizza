@@ -1,0 +1,24 @@
+.order-container {
+    background-color: #CE2829;
+    color:#FAF7F2;
+    width: 100%;
+    height: 100vh;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 150px;
+}
+
+
+.logo{
+    margin: 50px auto;
+    width: 30%;
+    height: 10%;
+  }
+
+
+  .order-container p {
+    margin: 5px;
+    font-size: 50px;
+  }
