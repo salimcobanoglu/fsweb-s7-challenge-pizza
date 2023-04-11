@@ -115,7 +115,7 @@ const Form = () => {
       .default(data.name),
     secenekler: yup
       .array()
-      .max(10, "En fazla 10 tane seçebilirsiniz.")
+      .max(3, "En fazla 3 tane seçebilirsiniz.")
       .default(data.secenekler),
     instructions: yup
       .string()
