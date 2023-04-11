@@ -2,8 +2,8 @@
   width: 100vw;
   height: 100vh;
   text-align: center;
-  margin-top: 50px auto;
-  padding-top: 80px 0;
+  /* margin-top: 50px auto; */
+  /* padding-top: 80px 0; */
   background-color: #ce2829;
   color: #faf7f2;
   display: flex;
@@ -11,15 +11,15 @@
 }
 
 .home-container p {
-  margin: 5px;
+  margin: 10px;
   font-size: 50px;
 }
 
-.logo {
+/* .logo {
   margin: 50px auto;
   width: 30%;
   height: 10%;
-}
+} */
 
 #order-pizza {
   cursor: default;
@@ -32,11 +32,13 @@
   width: 150px;
   height: 40px;
   cursor: pointer;
+  font-size: 20px;
+  border: none;
 }
 .pizza-img {
   position: fixed;
   bottom: 0;
   width: 100%;
   height: auto;
-  max-height: 550px;
+  max-height: 500px;
 }

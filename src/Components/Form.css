@@ -2,21 +2,13 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   align-items: center;
-}
-
-.icerik-container {
-  width: 500px;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  padding-top: 20px;
 }
 
 .navbar {
   width: 100vw;
-  padding: 20px 0;
+  padding-bottom: 20px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -25,18 +17,30 @@
   text-align: center;
 }
 
+.active {
+  font-weight: bold;
+}
+
+.icerik-container {
+  width: 500px;
+  /* display: flex;
+  flex-direction: column; */
+  /* justify-content: flex-start; */
+  /* padding-top: 20px; */
+}
+
 button[disabled] {
   opacity: 0.5;
   pointer-events: none;
 }
 
-.logo {
+/* .logo {
   margin: 50px auto;
   width: 30%;
   height: 10%;
-}
+} */
 
-.direction a {
+.all-links a {
   color: white;
   padding: 20px;
   text-decoration: none;
@@ -49,51 +53,51 @@ button[disabled] {
   width: 500px;
 }
 
-.ek {
+.rate-comment {
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
   width: 150px;
 }
 
-.seçimler {
+.choices {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
 
-.seçim-1 {
+.boy {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
 }
 
-.seçim-2 {
+/* .seçim-2 {
   width: 165px;
   height: 100px;
-}
+} */
 
 #dough-dropdown {
   text-align: center;
   border: none;
-  padding: 5px;
-  width: 80px;
+  /* padding: 5px; */
+  width: 200px;
   height: 30px;
   border: solid gray 0.3px;
 }
 
-#name-input {
+/* #name-input {
   width: 80px;
   height: 20px;
   border: none;
   padding: 5px 15px;
   border: solid gray 0.3px;
   text-align: center;
-}
+} */
 
-.form-label {
+/* .form-label {
   margin-top: 30px;
-}
+} */
 
 #special-text {
   width: 475px;
@@ -105,41 +109,49 @@ button[disabled] {
   text-align: center;
 }
 
-.btn.btn-secondary {
-  width: 50px;
-  height: 50px;
-  background-color: #fdc913;
-  color: white;
-  border: none;
-}
-
 /* #count {
   text-align: center;
   width: 50px;
   height: 45px;
 } */
 
-.sayısal {
+.ozetSol {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
 
-.my-5.card {
-  width: 100px;
-  padding: 20px;
-  border: 2px solid;
-}
-
-#order-button {
-  width: 170px;
+.secondary-button {
+  width: 250px;
   border: none;
+  border-radius: 5px;
   padding: 5px 25px;
   font-family: "Italianno", sans-serif;
   font-size: 1rem;
   background-color: #fdc913;
   color: black;
   cursor: pointer;
+}
+
+.primary-button {
+  width: 250px;
+  height: 50px;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 25px;
+  font-family: "Italianno", sans-serif;
+  font-size: 1rem;
+  background-color: #fdc913;
+  color: black;
+  cursor: pointer;
+}
+
+.siparis-toplami {
+  width: 230px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  text-align: center;
 }
 
 .error-msg {

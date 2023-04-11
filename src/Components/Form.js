@@ -57,17 +57,18 @@ const secenekler = [
 
 const Form = () => {
   const [data, setData] = useState(initialValues);
-  const [malzemeSayısı, setMalzemeSayısı] = useState(0);
-  const [price, setPrice] = useState(data.ücret);
+  const [ekMalzemeSayisi, setEkMalzemeSayisi] = useState(0);
+  const [birPizzaFiyati, setBirPizzaFiyati] = useState(data.ücret);
 
   const [errors, setErrors] = useState(initialErrors);
   const [disabled, setDisabled] = useState(true);
   const [submit, setSubmit] = useState(false);
 
-  const [counter, setCounter] = useState(1);
+  const [pizzaSayisi, setPizzaSayisi] = useState(1);
+
   const perCost = 5;
-  const ekücret = perCost * malzemeSayısı;
-  const totalPrice = price * counter;
+  const birPizzaIcinEkUcret = perCost * ekMalzemeSayisi;
+  const totalPrice = birPizzaFiyati * pizzaSayisi;
 
   useEffect(() => {
     axios
@@ -89,21 +90,21 @@ const Form = () => {
   const kontrol = (e) => {
     setData({ ...data, [e.target.name]: e.target.checked });
     if (e.target.checked === true) {
-      setMalzemeSayısı(malzemeSayısı + 1);
-      setPrice(price + perCost);
+      setEkMalzemeSayisi(ekMalzemeSayisi + 1);
+      setBirPizzaFiyati(birPizzaFiyati + perCost);
     } else {
-      setMalzemeSayısı(malzemeSayısı - 1);
-      setPrice(price - perCost);
+      setEkMalzemeSayisi(ekMalzemeSayisi - 1);
+      setBirPizzaFiyati(birPizzaFiyati - perCost);
     }
   };
 
   const arttır = (e) => {
-    setCounter(counter + 1);
+    setPizzaSayisi(pizzaSayisi + 1);
   };
 
   const azalt = (e) => {
-    if (counter >= 1) setCounter(counter - 1);
-    if (counter <= 1) setCounter(1);
+    if (pizzaSayisi >= 1) setPizzaSayisi(pizzaSayisi - 1);
+    if (pizzaSayisi <= 1) setPizzaSayisi(1);
   };
 
   const schema = yup.object().shape({
@@ -146,14 +147,14 @@ const Form = () => {
   }, [data, schema]);
 
   useEffect(() => {
-    setData({ ...data, count: counter });
-  }, [counter]);
+    setData({ ...data, adet: pizzaSayisi });
+  }, [pizzaSayisi]);
 
   useEffect(() => {
     setData({
       ...data,
-      price: price,
-      ekücret: malzemeSayısı * perCost,
+      price: birPizzaFiyati,
+      ekücret: ekMalzemeSayisi * perCost,
     });
   }, [totalPrice]);
 
@@ -334,27 +335,26 @@ const Form = () => {
         <div className="ozetSol">
           <div class="altButton">
             <button onClick={azalt}>-</button>
-            <input type="number" id="count" value={counter} />
+            <input type="number" id="count" value={pizzaSayisi} />
             <button onClick={arttır}>+</button>
           </div>
 
           <div>
             <div className="siparis-toplami">
-              <h4 style={{ marginTop: 0 }}>Sipariş Toplamı</h4>
-              <h5>Seçimler: {ekücret * counter} TL</h5>
+              <h4>Sipariş Toplamı</h4>
+              <h5>Seçimler: {birPizzaIcinEkUcret * pizzaSayisi} TL</h5>
               <h5>Toplam: {totalPrice} TL</h5>
             </div>
 
-            <Link to="/order">
-              <button
-                id="order-button"
-                data-cy="order-button"
-                disabled={disabled}
-                className="btn btn-primary"
-              >
-                Sipariş ver!
+            {disabled ? (
+              <button disabled={true} className="secondary-button">
+                Sipariş Ver
               </button>
-            </Link>
+            ) : (
+              <NavLink to="/order">
+                <button className="primary-button">Sipariş Ver</button>
+              </NavLink>
+            )}
           </div>
         </div>
       </div>
