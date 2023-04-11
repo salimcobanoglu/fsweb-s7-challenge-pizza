@@ -114,7 +114,7 @@ const Form = () => {
       .default(data.name),
     secenekler: yup
       .array()
-      .max(10, "En fazla 10 tane seçebilirsiniz.")
+      .max(3, "En fazla 3 tane seçebilirsiniz.") // set max to 3
       .default(data.secenekler),
     instructions: yup
       .string()
@@ -162,18 +162,29 @@ const Form = () => {
       {/* Navigation */}
       <div className="navbar">
         <img className="logo" src="./logo.svg" alt="teknolojik yemekler" />
-        <div className="direction">
-          <NavLink className="links" to="/">
-            Anasayfa
-          </NavLink>
+        <div className="all-links">
+          <nav>
+            <NavLink activeClassName="active" className="links" to="/">
+              Anasayfa
+            </NavLink>
 
-          <NavLink className="secenekler" to="/pizza">
-            Seçenekler
-          </NavLink>
+            <NavLink
+              activeClassName="active"
+              className="secenekler"
+              to="/pizza"
+            >
+              Seçenekler
+            </NavLink>
 
-          <NavLink id="order-pizza" className="links" to="/pizza">
-            Sipariş oluştur
-          </NavLink>
+            <NavLink
+              activeClassName="active"
+              id="order-pizza"
+              className="links"
+              to="/pizza"
+            >
+              Sipariş oluştur
+            </NavLink>
+          </nav>
         </div>
       </div>
       {/* Navigation */}
@@ -183,7 +194,7 @@ const Form = () => {
         <h2> Position Absolute Acı Pizza</h2>
         <div className="pizza-info">
           <span>{data.ücret} TL</span>
-          <div className="ek">
+          <div className="rate-comment">
             <span>{data.rate}</span>
             <span>({data.comments})</span>
           </div>
@@ -216,8 +227,8 @@ const Form = () => {
           <button type="submit">Gönder</button>
         </form>
 
-        <div className="seçimler">
-          <div className="seçim-1">
+        <div className="choices">
+          <div className="boy">
             <label htmlFor="size-dropdown" sm={2}>
               <h3>Boy:</h3>
             </label>
@@ -320,24 +331,15 @@ const Form = () => {
 
         <hr style={{ size: "2", border: "solid", width: "100%" }} />
 
-        <div className="sayısal">
+        <div className="ozetSol">
           <div class="altButton">
             <button onClick={azalt}>-</button>
             <input type="number" id="count" value={counter} />
             <button onClick={arttır}>+</button>
           </div>
 
-          <div className="seçim-2">
-            <div
-              className="my-5"
-              style={{
-                width: "8rem",
-                border: "1px solid #ccc",
-                borderRadius: "5px",
-                padding: "10px",
-                textAlign: "center",
-              }}
-            >
+          <div>
+            <div className="siparis-toplami">
               <h4 style={{ marginTop: 0 }}>Sipariş Toplamı</h4>
               <h5>Seçimler: {ekücret * counter} TL</h5>
               <h5>Toplam: {totalPrice} TL</h5>
