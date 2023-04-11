@@ -4,21 +4,20 @@ import "./Form.css";
 import * as yup from "yup";
 import axios from "axios";
 
-import {
-  FormGroup,
-  CardTitle,
-  Card,
-  CardText,
-  ButtonToolbar,
-  ButtonGroup,
-  Button,
-  Input,
-  Label,
-  Col,
-  FormFeedback,
-} from "reactstrap";
-
 const initialValues = {
+  name: "",
+  boyut: "",
+  hamur: "",
+  secenekler: [],
+  instructions: "",
+  adet: 1,
+  ücret: 85.5,
+  ekücret: "",
+  rate: 0,
+  comments: 0,
+};
+
+const postData = {
   name: "",
   boyut: "",
   hamur: "",
@@ -72,7 +71,7 @@ const Form = () => {
 
   useEffect(() => {
     axios
-      .post("https://reqres.in/api/users", initialValues)
+      .post("https://reqres.in/api/users", postData)
       .then((response) => {
         console.log(response.data);
         setData(response.data);
@@ -115,7 +114,7 @@ const Form = () => {
       .default(data.name),
     secenekler: yup
       .array()
-      .max(3, "En fazla 3 tane seçebilirsiniz.")
+      .max(10, "En fazla 10 tane seçebilirsiniz.")
       .default(data.secenekler),
     instructions: yup
       .string()
@@ -158,12 +157,9 @@ const Form = () => {
     });
   }, [totalPrice]);
 
-  useEffect(() => {
-    console.log("errors >", errors);
-  }, [errors]);
-
   return (
     <form id="pizza-form" className="form-container" onSubmit={onSubmit}>
+      {/* Navigation */}
       <div className="navbar">
         <img className="logo" src="./logo.svg" alt="teknolojik yemekler" />
         <div className="direction">
@@ -180,7 +176,9 @@ const Form = () => {
           </NavLink>
         </div>
       </div>
+      {/* Navigation */}
 
+      {/* Nav Sonrasi Ana Div */}
       <div className="icerik-container">
         <h2> Position Absolute Acı Pizza</h2>
         <div className="pizza-info">
@@ -199,176 +197,166 @@ const Form = () => {
           lezzetli bir yemektir. Küçük bir pizzaya bazen pizetta denir.{" "}
         </p>
 
-        <FormGroup>
-          <Label htmlFor="name-input">
+        <form>
+          <label>
             <h3>İsim: </h3>
-          </Label>
-          <Input
-            id="name-input"
-            name="name"
-            placeholder="isim yazınız"
-            type="text"
-            onChange={changeHandler}
-            value={data.name}
-            invalid={errors.name}
-            data-cy="name-input"
-          />
-          <FormFeedback>{errors.name}</FormFeedback>
-        </FormGroup>
+            <input
+              name="name"
+              placeholder="isim yazınız"
+              type="text"
+              onChange={changeHandler}
+              value={data.name}
+              className={errors.name ? "is-invalid" : ""}
+              data-cy="name-input"
+            />
+            {errors.name && (
+              <div className="invalid-feedback">{errors.name}</div>
+            )}
+          </label>
+          <button type="submit">Gönder</button>
+        </form>
 
         <div className="seçimler">
           <div className="seçim-1">
-            <Label htmlFor="size-dropdown" sm={2}>
+            <label htmlFor="size-dropdown" sm={2}>
               <h3>Boy:</h3>
-            </Label>
+            </label>
 
-            <FormGroup check htmlFor="size-dropdown">
-              <Label check>
-                <Input
-                  type="radio"
-                  name="boyut"
-                  id="size-dropdown"
-                  value="Küçük"
-                  data-cy="size-dropdown"
-                  invalid={errors.boyut}
-                  onChange={changeHandler}
-                />{" "}
-                Küçük
-              </Label>
-            </FormGroup>
-            <FormGroup check>
-              <Label check htmlFor="size-dropdown">
-                <Input
-                  type="radio"
-                  name="boyut"
-                  id="size-dropdown"
-                  value="Orta"
-                  data-cy="size-dropdown"
-                  invalid={errors.boyut}
-                  onChange={changeHandler}
-                />{" "}
-                Orta
-              </Label>
-            </FormGroup>
-            <FormGroup check>
-              <Label check htmlFor="size-dropdown">
-                <Input
-                  type="radio"
-                  name="boyut"
-                  id="size-dropdown"
-                  value="Büyük"
-                  data-cy="size-dropdown"
-                  invalid={errors.boyut}
-                  onChange={changeHandler}
-                />{" "}
-                Büyük
-              </Label>
-              <FormFeedback>{errors.boyut}</FormFeedback>
-            </FormGroup>
+            <label htmlFor="size-dropdown">
+              <input
+                type="radio"
+                name="boyut"
+                id="size-dropdown"
+                value="Küçük"
+                data-cy="size-dropdown"
+                required
+                onChange={changeHandler}
+              />
+              Küçük
+            </label>
+
+            <label htmlFor="size-dropdown">
+              <input
+                type="radio"
+                name="boyut"
+                id="size-dropdown"
+                value="Orta"
+                data-cy="size-dropdown"
+                required
+                onChange={changeHandler}
+              />
+              Orta
+            </label>
+
+            <label htmlFor="size-dropdown">
+              <input
+                type="radio"
+                name="boyut"
+                id="size-dropdown"
+                value="Büyük"
+                data-cy="size-dropdown"
+                required
+                onChange={changeHandler}
+              />
+              Büyük
+            </label>
+            {errors.boyut && <div>{errors.boyut}</div>}
           </div>
 
-          <FormGroup>
-            <Label htmlFor="dough-dropdown" sm={2}>
+          <div>
+            <label htmlFor="dough-dropdown">
               <h3>Hamur: </h3>
-            </Label>
-            <Col sm={20}>
-              <Input
-                id="dough-dropdown"
-                name="hamur"
-                type="select"
-                placeholder="---Hangi hamur olsun?---"
-                value={data.hamur}
-                onChange={changeHandler}
-                data-cy="dough-dropdown"
-              >
-                <option value="ince">ince</option>
-                <option value="orta">orta</option>
-                <option value="kalın">kalın</option>
-              </Input>
-            </Col>
-            <FormFeedback>{errors.hamur}</FormFeedback>
-          </FormGroup>
+            </label>
+            <select
+              id="dough-dropdown"
+              name="hamur"
+              value={data.hamur}
+              onChange={changeHandler}
+              data-cy="dough-dropdown"
+            >
+              <option value="">---Hangi hamur olsun?---</option>
+              <option value="ince">ince</option>
+              <option value="orta">orta</option>
+              <option value="kalın">kalın</option>
+            </select>
+            {errors.hamur && <div>{errors.hamur}</div>}
+          </div>
         </div>
 
-        <FormGroup>
+        <div>
           <h3>Ek Malzemeler:</h3>
-          <p>En Fazla 10 malzeme seçebilirsiniz. 5tl</p>
-
+          <p>En fazla 10 malzeme seçebilirsiniz. 5tl</p>
           {secenekler.map((e, index) => {
             return (
               <div key={index} className="checkbox-group">
-                <FormGroup check inline>
-                  <Input type="checkbox" name={e} onChange={kontrol} />
-
-                  <Label check>{e} </Label>
-                  <FormFeedback>{errors.secenekler}</FormFeedback>
-                </FormGroup>
+                <label>
+                  <input type="checkbox" name={e} onChange={kontrol} />
+                  {e}
+                </label>
+                {errors.secenekler && <div>{errors.secenekler}</div>}
               </div>
             );
           })}
-        </FormGroup>
+        </div>
 
-        <FormGroup>
-          <Label htmlFor="special-text">
+        <div>
+          <label htmlFor="special-text">
             <h3>Sipariş Notu : </h3>
-          </Label>
-          <Input
+          </label>
+          <input
             id="special-text"
             name="instructions"
             placeholder="notunuzu yazınız"
             type="text"
             onChange={changeHandler}
             value={data.instructions}
-            invalid={errors.instructions}
+            className={errors.instructions ? "is-invalid" : ""}
             data-cy="special-text"
           />
-          <FormFeedback>{errors.instructions}</FormFeedback>
-        </FormGroup>
+          {errors.instructions && (
+            <div className="invalid-feedback">{errors.instructions}</div>
+          )}
+        </div>
 
         <hr style={{ size: "2", border: "solid", width: "100%" }} />
 
         <div className="sayısal">
-          <ButtonToolbar>
-            <ButtonGroup>
-              <Button onClick={azalt}>-</Button>{" "}
-              <Input id="count" type="number" value={counter} />{" "}
-              <Button onClick={arttır}>+</Button>
-            </ButtonGroup>
-          </ButtonToolbar>
+          <div class="altButton">
+            <button onClick={azalt}>-</button>
+            <input type="number" id="count" value={counter} />
+            <button onClick={arttır}>+</button>
+          </div>
 
           <div className="seçim-2">
-            <FormGroup>
-              <Card
-                className="my-5"
-                style={{
-                  width: "8rem",
-                }}
+            <div
+              className="my-5"
+              style={{
+                width: "8rem",
+                border: "1px solid #ccc",
+                borderRadius: "5px",
+                padding: "10px",
+                textAlign: "center",
+              }}
+            >
+              <h4 style={{ marginTop: 0 }}>Sipariş Toplamı</h4>
+              <h5>Seçimler: {ekücret * counter} TL</h5>
+              <h5>Toplam: {totalPrice} TL</h5>
+            </div>
+
+            <Link to="/order">
+              <button
+                id="order-button"
+                data-cy="order-button"
+                disabled={disabled}
+                className="btn btn-primary"
               >
-                <CardTitle>
-                  {" "}
-                  <h4 style={{ marginTop: 0 }}>Sipariş Toplamı</h4>
-                </CardTitle>
-                <CardText>
-                  <h5>Seçimler: {ekücret * counter} TL </h5>
-
-                  <h5>Toplam: {totalPrice} TL </h5>
-                </CardText>
-              </Card>
-
-              <Link to="/order">
-                <button
-                  id="order-button"
-                  data-cy="order-button"
-                  disabled={disabled}
-                  className="btn btn-primary"
-                >
-                  Sipariş ver!
-                </button>
-              </Link>
-            </FormGroup>
+                Sipariş ver!
+              </button>
+            </Link>
           </div>
         </div>
       </div>
+      {/* Nav Sonrasi Ana Div */}
     </form>
   );
 };

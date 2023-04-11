@@ -113,11 +113,11 @@ button[disabled] {
   border: none;
 }
 
-#count {
+/* #count {
   text-align: center;
   width: 50px;
   height: 45px;
-}
+} */
 
 .sayısal {
   display: flex;
@@ -152,4 +152,26 @@ button[disabled] {
   display: inline-block;
   width: calc(30% - 5px);
   margin-bottom: 5px;
+}
+
+.altButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.altButton button {
+  border: none;
+  background-color: #fdc913;
+  font-size: 2.5rem;
+  cursor: pointer;
+  width: 50px;
+  height: 50px;
+}
+
+.altButton input {
+  width: 50px;
+  height: 45px;
+  font-size: 25px;
+  text-align: center;
 }
