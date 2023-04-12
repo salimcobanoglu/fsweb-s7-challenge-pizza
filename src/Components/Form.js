@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { NavLink, Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import "./Form.css";
 import * as yup from "yup";
 import axios from "axios";
@@ -107,25 +107,29 @@ const Form = () => {
     if (pizzaSayisi <= 1) setPizzaSayisi(1);
   };
 
+  const changeHandler2 = (event) => {
+    const { name, value } = event.target;
+    setData((data) => ({
+      ...data,
+      [name]: value,
+      ...(value === "ince" && { value: "1" }),
+      ...(value === "orta" && { value: "2" }),
+      ...(value === "kalın" && { value: "3" }),
+    }));
+  };
+
   const schema = yup.object().shape({
     name: yup
       .string()
       .required("bu alanı doldurmak zorunludur.")
-      .min(2, "isim en az 2 karakter olmalıdır")
-      .default(data.name),
-    secenekler: yup
-      .array()
-      .max(3, "En fazla 3 tane seçebilirsiniz.") // set max to 3
-      .default(data.secenekler),
-    instructions: yup
-      .string()
-      .required("bu alanı doldurmak zorunludur.")
-      .default(data.instructions),
-    adet: yup.number().required().default(data.adet),
-    ücret: yup.number().required().default(data.ücret),
-    ekücret: yup.number().required().default(data.ekücret),
-    rate: yup.number().required().default(data.rate),
-    comments: yup.number().required().default(data.comments),
+      .min(2, "isim en az 2 karakter olmalıdır"),
+    secenekler: yup.array().max(3, "En fazla 3 tane seçebilirsiniz."), // set max to 3
+    instructions: yup.string().required("bu alanı doldurmak zorunludur."),
+    adet: yup.number().required(),
+    ücret: yup.number().required(),
+    ekücret: yup.number().required(),
+    rate: yup.number().required(),
+    comments: yup.number().required(),
   });
 
   const changeHandler = (e) => {
@@ -240,7 +244,6 @@ const Form = () => {
                 name="boyut"
                 id="size-dropdown"
                 value="Küçük"
-                data-cy="size-dropdown"
                 required
                 onChange={changeHandler}
               />
@@ -253,7 +256,6 @@ const Form = () => {
                 name="boyut"
                 id="size-dropdown"
                 value="Orta"
-                data-cy="size-dropdown"
                 required
                 onChange={changeHandler}
               />
@@ -266,7 +268,6 @@ const Form = () => {
                 name="boyut"
                 id="size-dropdown"
                 value="Büyük"
-                data-cy="size-dropdown"
                 required
                 onChange={changeHandler}
               />
@@ -283,7 +284,7 @@ const Form = () => {
               id="dough-dropdown"
               name="hamur"
               value={data.hamur}
-              onChange={changeHandler}
+              onChange={changeHandler2}
               data-cy="dough-dropdown"
             >
               <option value="">---Hangi hamur olsun?---</option>
@@ -297,7 +298,7 @@ const Form = () => {
 
         <div>
           <h3>Ek Malzemeler:</h3>
-          <p>En fazla 10 malzeme seçebilirsiniz. 5tl</p>
+          <p>En fazla 3 malzeme seçebilirsiniz. 5tl</p>
           {secenekler.map((e, index) => {
             return (
               <div key={index} className="checkbox-group">
@@ -347,7 +348,11 @@ const Form = () => {
             </div>
 
             {disabled ? (
-              <button disabled={true} className="secondary-button">
+              <button
+                data-cy="order-button"
+                disabled={true}
+                className="secondary-button"
+              >
                 Sipariş Ver
               </button>
             ) : (
