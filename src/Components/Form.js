@@ -174,14 +174,6 @@ const Form = () => {
 
             <NavLink
               activeClassName="active"
-              className="secenekler"
-              to="/pizza"
-            >
-              Seçenekler
-            </NavLink>
-
-            <NavLink
-              activeClassName="active"
               id="order-pizza"
               className="links"
               to="/pizza"
