@@ -1,6 +1,6 @@
 describe("Sipariş button test", () => {
   beforeEach(() => {
-    cy.visit("http://localhost:3002/pizza");
+    cy.visit("http://localhost:3000/pizza");
   });
 
   it("Test name-input", () => {
