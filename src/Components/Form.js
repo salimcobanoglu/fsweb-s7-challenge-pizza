@@ -123,7 +123,6 @@ const Form = () => {
       .string()
       .required("bu alanı doldurmak zorunludur.")
       .min(2, "isim en az 2 karakter olmalıdır"),
-    secenekler: yup.array().max(3, "En fazla 3 tane seçebilirsiniz."), // set max to 3
     instructions: yup.string().required("bu alanı doldurmak zorunludur."),
     adet: yup.number().required(),
     ücret: yup.number().required(),

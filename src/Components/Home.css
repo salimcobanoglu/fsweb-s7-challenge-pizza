@@ -12,7 +12,7 @@
 
 .home-container p {
   margin: 10px;
-  font-size: 50px;
+  font-size: 60px;
 }
 
 /* .logo {
@@ -29,14 +29,17 @@
   border-radius: 20px;
   color: black;
   background-color: #fdc913;
-  width: 150px;
+  width: 200px;
   height: 40px;
   cursor: pointer;
-  font-size: 20px;
+  font-size: 25px;
   border: none;
 }
 .pizza-img {
-  margin: 2rem auto;
-  max-width: 100%;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
   height: auto;
+  max-height: 550px;
+  max-height: 500px;
 }
